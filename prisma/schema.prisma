@@ -1,0 +1,30 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+enum Category {
+    DEFI
+    NFT
+    GAMING
+    OTHER
+}
+
+model SharediumProject {
+    id String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name String @unique
+    description String
+    about String
+    // keywords String[]
+    twitterLink String
+    website String
+    discordLink String
+    approved Boolean @default(false)
+    category Category @default(OTHER)
+}
