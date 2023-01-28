@@ -1,9 +1,13 @@
-import { SharediumProject } from "@prisma/client";
+import type { SharediumProject } from "@prisma/client";
 import { NextApiRequest } from "next";
 
 import { Vote } from "./vote";
 
-export const ProjectDetail = ({ queryProjects }: any) => {
+export const ProjectDetail = ({
+  queryProjects,
+}: {
+  queryProjects: SharediumProject[];
+}) => {
   return (
     <>
       {queryProjects?.map((project: SharediumProject) => {
@@ -44,7 +48,7 @@ export const ProjectDetail = ({ queryProjects }: any) => {
                     {project.about}
                   </p>
                   <p className="pt-8 text-sm">{project.category}</p>
-                  <Vote project={project} />
+                  <Vote />
                 </div>
               </div>
             </div>
@@ -55,10 +59,10 @@ export const ProjectDetail = ({ queryProjects }: any) => {
   );
 };
 
-export async function getServerSideProps({ req }: { req: NextApiRequest }) {
-  const ip =
-    req.headers["x-forwarded-for"] || req.headers["Remote_Addr"] || "NA";
-  console.log("ip in ssr" + ip);
+// export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+//   const ip =
+//     req.headers["x-forwarded-for"] || req.headers["Remote_Addr"] || "NA";
+//   console.log("ip in ssr" + ip);
 
-  return { props: { ip } };
-}
+//   return { props: { ip } };
+// }

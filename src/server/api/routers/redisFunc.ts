@@ -4,6 +4,14 @@ import { v4 as uuidv4 } from "uuid";
 
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
+type EntryType = {
+  id: string;
+  name: string;
+  created_at: Date;
+  score: number;
+  ip: string;
+};
+
 export const redisFuncRouter = createTRPCRouter({
   // create a trpc mutation to create a new sharedium project in the database
   addVote: publicProcedure
@@ -17,20 +25,21 @@ export const redisFuncRouter = createTRPCRouter({
       const keys = await redis.hkeys("project");
       const id = keys.find((key) => key === input.name);
       if (id) {
-        const ip: string | string[] =
-          ctx.req.headers["x-forwarded-for"] ||
-          ctx.req.headers["Remote_Addr"] ||
+        const ip: string =
+          (ctx.req.headers["x-forwarded-for"] as string) ||
+          (ctx.req.headers["Remote_Addr"] as string) ||
           "NA";
-        const count =
-          ip === "NA" ? 1 : await redis.sadd("s:" + input.name, ip as string);
+        const count = ip == "NA" ? 1 : await redis.sadd("s:" + input.name, ip);
         console.log(count);
 
         if (count === 0) {
           // return { error: "you cannot vote" };
           console.log("count ==0");
         } else {
-          const entry = JSON.parse((await redis.hget("project", id)) || "null");
-          const updated = {
+          const entry: EntryType = JSON.parse(
+            (await redis.hget("project", id)) || "null"
+          ) as EntryType;
+          const updated: EntryType = {
             ...entry,
             score: entry.score + 1,
             ip,
@@ -50,7 +59,7 @@ export const redisFuncRouter = createTRPCRouter({
         name: z.string(),
       })
     )
-    .mutation(async ({ input, ctx }) => {
+    .mutation(async ({ input }) => {
       // const newEntry = {
       //   input.id,
       //   input.name,
@@ -78,21 +87,21 @@ export const redisFuncRouter = createTRPCRouter({
       } else {
         console.log("kundi 150 error");
       }
-      const project = (await redis.hvals("project"))
-        .map((entry) => JSON.parse(entry))
-        .sort((a, b) => b.score - a.score);
-      console.log(`from redi ${project}`);
+      // const project = (await redis.hvals("project"))
+      //   .map((entry: EntryType) => JSON.parse(entry))
+      //   .sort((a: EntryType, b: EntryType) => b.score - a.score);
+      // console.log(`from redi ${project}`);
 
       return newEntry;
     }),
   getRedisItems: publicProcedure.query(async () => {
-    const project = (await redis.hvals("project"))
-      .map((entry) => JSON.parse(entry))
-      .sort((a, b) => b.score - a.score);
+    const project: EntryType[] = (await redis.hvals("project"))
+      .map((entry) => entry as unknown as EntryType)
+      .sort((a: EntryType, b: EntryType) => b.score - a.score);
     return project;
   }),
 
-  getIp: publicProcedure.query(async ({ ctx }) => {
+  getIp: publicProcedure.query(({ ctx }) => {
     const ip =
       ctx.req.headers["x-forwarded-for"] ||
       ctx.req.headers["Remote_Addr"] ||

@@ -8,7 +8,7 @@ const allProject = () => {
   return (
     <>
       <h1>hi</h1>
-      <ProjectDetail queryProjects={data} />
+      <ProjectDetail queryProjects={data!} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import { ProjectDetail } from "../../../components/projectDetail";
 import { api } from "../../utils/api";
 
@@ -7,7 +7,7 @@ const DefiCategoryPage: NextPage = () => {
 
   return (
     <>
-      <ProjectDetail queryProjects={data} />
+      <ProjectDetail queryProjects={data!} />
     </>
   );
 };

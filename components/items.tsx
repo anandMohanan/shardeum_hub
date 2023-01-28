@@ -1,6 +1,13 @@
 import clsx from "clsx";
 import { api } from "../src/utils/api";
 
+type ProjectType = {
+  id: string;
+  name: string;
+  score: number;
+  ip: string;
+};
+
 export const Item = ({
   isFirst,
   isLast,
@@ -13,7 +20,7 @@ export const Item = ({
   isLast: boolean;
   isReleased: boolean;
   hasVoted: boolean;
-  feature: any;
+  feature: ProjectType;
   name: string;
 }) => {
   const vote = api.redisFunc.addVote.useMutation();
@@ -50,7 +57,7 @@ export const Item = ({
       >
         {isReleased ? "✅" : "👍"}
       </button>
-      <h3 className="text w-full text-left font-semibold">{feature.title}</h3>
+      <h3 className="text w-full text-left font-semibold">{feature.name}</h3>
       <div className="ml-2 rounded-xl bg-gray-200 px-2 text-sm text-gray-700">
         {feature.score}
       </div>

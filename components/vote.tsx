@@ -5,17 +5,22 @@ import clsx from "clsx";
 import { NextApiRequest } from "next";
 import redis from "../src/utils/redis";
 import { Item } from "./items";
-
-export const Vote = ({ project }: any) => {
-  const [hasVoted, setHasVoted] = useState<Boolean>();
-  const [isReleased, setIsReleased] = useState<Boolean>();
-  const [isFirst, setIsFirst] = useState<Boolean>();
-  const [isLast, setIsLast] = useState<Boolean>();
+type ProjectType = {
+  id: string;
+  name: string;
+  score: number;
+  ip: string;
+};
+export const Vote = () => {
+  const [hasVoted, setHasVoted] = useState<boolean>();
+  const [isReleased, setIsReleased] = useState<boolean>();
+  const [isFirst, setIsFirst] = useState<boolean>();
+  const [isLast, setIsLast] = useState<boolean>();
   const vote = api.redisFunc.addVote.useMutation();
   const getRedisItems = api.redisFunc.getRedisItems.useQuery();
   const getIp = api.redisFunc.getIp.useQuery();
-  const ip = getIp.data;
-  console.log("ip from vote tsx" + ip);
+  const ip = getIp.data as string;
+  console.log(`ip from vote tsx ${ip}`);
 
   //   function Item({
   //     isFirst,
@@ -33,7 +38,7 @@ export const Vote = ({ project }: any) => {
 
   return (
     <>
-      {getRedisItems.data?.map((project, i) => {
+      {getRedisItems.data?.map((project: ProjectType, i) => {
         return (
           <Item
             key={i}

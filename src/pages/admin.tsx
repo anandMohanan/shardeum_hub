@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState } from "react";
+import type { FormEvent } from "react";
 import { api } from "../utils/api";
 
 const Admin = () => {
@@ -23,14 +24,20 @@ const Admin = () => {
     } else {
       setErrorMessage("Incorrect username or password. Please try again.");
       alert("Incorrect username or password. Please try again.");
-      router.push("/");
+      router
+        .push("/")
+        .catch((e) => console.log(`Cant route to / ${e as string}`));
     }
   };
 
-  const changeApprovalButton = async (id: any) => {
-    await approveMutation.mutate({ id: id, status: true });
-    setTimeout(() => {}, 5000);
+  const changeApprovalButton = (id: string) => {
+    approveMutation.mutate({ id: id, status: true });
+    setTimeout(() => {
+      console.log("Approval ongoing");
+    }, 5000);
     router.reload();
+    setIsLoggedIn(true);
+    setCurrent(false);
   };
 
   return (

@@ -1,5 +1,5 @@
-import { SharediumProject } from "@prisma/client";
-import { NextPage } from "next";
+import type { SharediumProject } from "@prisma/client";
+import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -27,10 +27,10 @@ const Submit: NextPage = () => {
 
   const router = useRouter();
 
-  const onSubmitBtn = async () => {
+  const onSubmitBtn = () => {
     console.log(name, about, description, discordLink, twitterLink, website);
 
-    await res.mutate({
+    res.mutate({
       name,
       about,
       description,
@@ -54,12 +54,14 @@ const Submit: NextPage = () => {
     //   });
     //   router.push("/");
     // }
-    await addToRedis.mutate({
+    addToRedis.mutate({
       name: name,
     });
 
     if (!res.isError) {
-      router.push("/");
+      router
+        .push("/")
+        .catch((e) => console.log(`Error at submit ${e as string}`));
     }
     // return res;
   };
@@ -167,13 +169,13 @@ const Submit: NextPage = () => {
                     </div>
                     <div className="relative mt-6 flex flex-wrap">
                       <div className="w-1/2">
-                        <a
+                        <Link
                           href="#pablo"
                           onClick={(e) => e.preventDefault()}
                           className="text-blueGray-200"
                         >
                           <small>Forgot password?</small>
-                        </a>
+                        </Link>
                       </div>
                       <div className="w-1/2 text-right">
                         <Link
@@ -255,10 +257,6 @@ const Submit: NextPage = () => {
           </form>
 
           <button onClick={() => onSubmitBtn()}>Submit your project</button>
-
-          <span>You have succesfully submitted your project</span>
-          <span>We will soon notify about the status of your project</span>
-          <a href="/"> / </a>
         </>
       )}
     </>

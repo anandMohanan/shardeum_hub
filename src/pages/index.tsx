@@ -3,8 +3,6 @@ import Head from "next/head";
 import Link from "next/link";
 import { ProjectDetail } from "../../components/projectDetail";
 
-
-
 import { api } from "../utils/api";
 
 const Home: NextPage = () => {
@@ -20,14 +18,14 @@ const Home: NextPage = () => {
       </Head>
       <main>
         <nav>
-          <a href="/submit">Submit</a>
+          <Link href="/submit">Submit</Link>
         </nav>
         <h1>Count : {projectCounts.data}</h1>
-        <a href="/categories/gaming"> gaming</a>
-        <a href="/categories/defi"> defi</a>
-        <a href="/categories/nft"> nft</a>
-        <a href="/categories/other"> other</a>
-        <ProjectDetail queryProjects={data} />
+        <Link href="/categories/gaming"> gaming</Link>
+        <Link href="/categories/defi"> defi</Link>
+        <Link href="/categories/nft"> nft</Link>
+        <Link href="/categories/other"> other</Link>
+        <ProjectDetail queryProjects={data!} />
       </main>
     </>
   );
