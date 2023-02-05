@@ -2,7 +2,7 @@ import type { SharediumProject } from "@prisma/client";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 import { api } from "../utils/api";
 enum Category {
   DEFI = "DEFI",

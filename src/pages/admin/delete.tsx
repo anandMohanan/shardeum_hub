@@ -1,7 +1,7 @@
-import { NextPage } from "next";
+import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FC, FormEvent, useState } from "react";
+import { type FormEvent, useState } from "react";
 import { api } from "../../utils/api";
 
 const Delete: NextPage = () => {
