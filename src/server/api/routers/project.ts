@@ -47,7 +47,10 @@ export const projectRouter = createTRPCRouter({
   }),
 
   getAllProjects: publicProcedure.query(({ ctx }) => {
-    const allProjects = ctx.prisma.sharediumProject.findMany({ take: 10 });
+    const allProjects = ctx.prisma.sharediumProject.findMany({
+      take: 10,
+      where: { approved: true },
+    });
     return allProjects;
   }),
 
@@ -65,4 +68,9 @@ export const projectRouter = createTRPCRouter({
       });
       return project;
     }),
+
+  getAdminProjects: publicProcedure.query(({ ctx }) => {
+    const allProjects = ctx.prisma.sharediumProject.findMany();
+    return allProjects;
+  }),
 });

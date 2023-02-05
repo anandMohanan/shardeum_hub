@@ -22,4 +22,15 @@ export const approvalRouter = createTRPCRouter({
       });
       return updateProject;
     }),
+
+  deleteProject: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const deletedProject = ctx.prisma.sharediumProject.delete({
+        where: {
+          id: input.id,
+        },
+      });
+      return deletedProject;
+    }),
 });

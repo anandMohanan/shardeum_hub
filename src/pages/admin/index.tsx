@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { api } from "../utils/api";
+import { api } from "../../utils/api";
+import Link from "next/link";
 
 const Admin = () => {
   const [formData, setFormData] = useState({
@@ -71,9 +72,13 @@ const Admin = () => {
       {isLoggedIn && (
         <>
           <p>Welcome to the admin page!</p>
+
           {approvalRequired.data?.map((project) => {
             return (
               <>
+                <Link className="text-white" href="/admin/delete">
+                  Delete projects
+                </Link>
                 <div className="mx-auto my-32 flex h-auto max-w-4xl flex-wrap items-center ">
                   <div
                     id="profile"
