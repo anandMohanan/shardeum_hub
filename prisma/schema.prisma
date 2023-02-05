@@ -23,8 +23,10 @@ model SharediumProject {
     about String
     // keywords String[]
     twitterLink String
+    githubLink String
     website String
     discordLink String
     approved Boolean @default(false)
     category Category @default(OTHER)
+    keywords String[]
 }

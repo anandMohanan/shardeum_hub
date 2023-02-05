@@ -99,7 +99,7 @@ const SingleProject = () => {
                   </div>
                 </div>
                 <div className="mt-12 text-center">
-                  <h3 className="mb-2 mb-2 text-4xl font-semibold leading-normal text-blueGray-700">
+                  <h3 className="mb-2 text-4xl font-semibold leading-normal text-blueGray-700">
                     {getProject.data?.name}
                   </h3>
                   <div className="mt-0 mb-2 text-sm font-bold uppercase leading-normal text-blueGray-400">

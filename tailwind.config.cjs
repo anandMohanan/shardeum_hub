@@ -1,12 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 
-const plugin = require('tailwindcss/plugin')
-const colors = require("tailwindcss/colors")
+const plugin = require("tailwindcss/plugin");
+const colors = require("tailwindcss/colors");
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}", "./components/*.{js,ts,jsx,tsx}"],
   theme: {
-    colors:{
-...colors
+    colors: {
+      ...colors,
     },
     extend: {
       minHeight: {
@@ -83,6 +83,9 @@ module.exports = {
   ],
   plugins: [
     // require("@tailwindcss/forms"),
+    require("@tailwindcss/typography"),
+    require("daisyui"),
+    require("@tailwindcss/forms"),
     plugin(function ({ addComponents, theme }) {
       const screens = theme("screens", {});
       addComponents([
@@ -127,4 +130,14 @@ module.exports = {
       ]);
     }),
   ],
+  daisyui: {
+    styled: true,
+    themes: true,
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: "",
+    darkTheme: "dark",
+  },
 };

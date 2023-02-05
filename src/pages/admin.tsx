@@ -107,6 +107,7 @@ const Admin = () => {
                         {project.about}
                       </p>
                       <p className="pt-8 text-sm">{project.category}</p>
+                      <p className="pt-8 text-sm">{project.keywords}</p>
 
                       <div className="pt-12 pb-8">
                         <button

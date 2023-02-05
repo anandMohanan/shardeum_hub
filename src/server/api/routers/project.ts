@@ -16,6 +16,8 @@ export const projectRouter = createTRPCRouter({
         discordLink: z.string(),
         website: z.string(),
         category: z.enum(VALUES),
+        keywords: z.array(z.string()),
+        githubLink: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -26,8 +28,11 @@ export const projectRouter = createTRPCRouter({
           discordLink: input.discordLink,
           name: input.name,
           twitterLink: input.twitterLink,
+          githubLink: input.githubLink,
+
           website: input.website,
           category: input.category,
+          keywords: input.keywords,
         },
       });
 
