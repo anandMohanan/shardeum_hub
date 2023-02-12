@@ -71,7 +71,7 @@ const Submit: NextPage = () => {
           <main>
             <section className="relative h-full min-h-screen w-full py-40">
               <div
-                className="absolute top-0 h-full w-full bg-blueGray-800 bg-full bg-no-repeat"
+                className="bg-blueGray-800 bg-full absolute top-0 h-full w-full bg-no-repeat"
                 style={{
                   backgroundImage:
                     "url('https://raw.githubusercontent.com/creativetimofficial/notus-nextjs/main/public/img/register_bg_2.png')",
@@ -80,22 +80,22 @@ const Submit: NextPage = () => {
               <div className="container mx-auto h-full px-4">
                 <div className="flex h-full content-center items-center justify-center">
                   <div className="w-full px-4 ">
-                    <div className="relative mb-6 flex w-full min-w-0 flex-col break-words rounded-lg border-0 bg-blueGray-200 shadow-lg">
+                    <div className="bg-blueGray-200 relative mb-6 flex w-full min-w-0 flex-col break-words rounded-lg border-0 shadow-lg">
                       <div className="mb-0 rounded-t px-6 py-6">
                         <div className="mb-3 text-center">
-                          <h6 className="text-sm font-bold text-blueGray-500">
+                          <h6 className="text-blueGray-500 text-sm font-bold">
                             Submit your project
                           </h6>
                         </div>
 
-                        <hr className="border-b-1 mt-6 border-blueGray-300" />
+                        <hr className="border-b-1 border-blueGray-300 mt-6" />
                       </div>
                       <div className="flex-auto px-4 py-10 pt-0 lg:px-10">
                         <form>
                           <div className="relative mb-3 w-full">
                             <label
                               htmlFor="name"
-                              className="mb-3 block text-base font-medium text-blueGray-600"
+                              className="text-blueGray-600 mb-3 block text-base font-medium"
                             >
                               Name
                             </label>
@@ -114,7 +114,7 @@ const Submit: NextPage = () => {
                           <div className="relative mb-3 w-full">
                             <label
                               htmlFor="about"
-                              className="mb-3 block text-base font-medium text-blueGray-600"
+                              className="text-blueGray-600 mb-3 block text-base font-medium"
                             >
                               About
                             </label>
@@ -131,7 +131,7 @@ const Submit: NextPage = () => {
                           <div className="relative mb-3 w-full">
                             <label
                               htmlFor="Description"
-                              className="mb-3 block text-base font-medium text-blueGray-600"
+                              className="text-blueGray-600 mb-3 block text-base font-medium"
                             >
                               Description
                             </label>
@@ -149,7 +149,7 @@ const Submit: NextPage = () => {
                           <div className="relative mb-3 w-full">
                             <label
                               htmlFor="Website"
-                              className="mb-3 block text-base font-medium text-blueGray-600"
+                              className="text-blueGray-600 mb-3 block text-base font-medium"
                             >
                               Website
                             </label>
@@ -167,7 +167,7 @@ const Submit: NextPage = () => {
                           <div className="relative mb-3 w-full">
                             <label
                               htmlFor="Discord link"
-                              className="mb-3 block text-base font-medium text-blueGray-600"
+                              className="text-blueGray-600 mb-3 block text-base font-medium"
                             >
                               Discord
                             </label>
@@ -185,7 +185,7 @@ const Submit: NextPage = () => {
                           <div className="relative mb-3 w-full">
                             <label
                               htmlFor="Twitter link"
-                              className="mb-3 block text-base font-medium text-blueGray-600"
+                              className="text-blueGray-600 mb-3 block text-base font-medium"
                             >
                               Twitter Link
                             </label>
@@ -203,7 +203,7 @@ const Submit: NextPage = () => {
                           <div className="relative mb-3 w-full">
                             <label
                               htmlFor="Github link"
-                              className="mb-3 block text-base font-medium text-blueGray-600"
+                              className="text-blueGray-600 mb-3 block text-base font-medium"
                             >
                               Github
                             </label>
@@ -218,7 +218,7 @@ const Submit: NextPage = () => {
                               className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                             />
                           </div>
-                          <label className="mb-3 block text-base font-medium text-blueGray-600">
+                          <label className="text-blueGray-600 mb-3 block text-base font-medium">
                             Category
                           </label>
                           <select
@@ -233,7 +233,7 @@ const Submit: NextPage = () => {
                             <option value={Category.OTHER}>OTHER</option>
                           </select>
                           <div className="relative mb-3 w-full">
-                            <label className="mb-3 block text-base font-medium text-blueGray-600">
+                            <label className="text-blueGray-600 mb-3 block text-base font-medium">
                               Keywords
                             </label>
                             <input
@@ -252,7 +252,7 @@ const Submit: NextPage = () => {
                             >
                               Submit your project */}
                             <input
-                              className="mr-1 mb-1 w-full cursor-pointer rounded bg-slate-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none active:bg-blueGray-600"
+                              className="active:bg-blueGray-600 mr-1 mb-1 w-full cursor-pointer rounded bg-slate-600 px-6 py-3 text-sm font-bold uppercase text-white shadow outline-none transition-all duration-150 ease-linear hover:shadow-lg focus:outline-none"
                               type="submit"
                               value="Submit your project"
                               onClick={() => onSubmitBtn()}
