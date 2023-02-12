@@ -72,10 +72,10 @@ const Submit: NextPage = () => {
             <div className="mx-auto max-w-[85rem] px-4 py-20 sm:px-6 lg:px-8">
               <div className="relative mx-auto grid max-w-4xl space-y-5 sm:space-y-10">
                 <div className=" text-center">
-                  <p className="mb-3 bg-gradient-to-bl from-purple-400 to-pink-600 bg-clip-text text-3xl font-extrabold   tracking-wide text-transparent  hover:from-pink-600 hover:to-purple-400 ">
+                  <p className="mb-3 bg-gradient-to-bl from-purple-400 to-pink-600 bg-clip-text text-base font-extrabold tracking-wide text-transparent  hover:from-pink-600 hover:to-purple-400  md:text-3xl lg:text-3xl ">
                     Innovate &lt; &gt; Decentralize &lt; &gt; Thrive
                   </p>
-                  <h1 className="text-base font-bold text-gray-800 dark:text-gray-200 sm:text-base lg:text-5xl lg:leading-tight">
+                  <h1 className="text-base font-bold text-gray-800 dark:text-gray-200 sm:text-base md:text-3xl lg:text-5xl lg:leading-tight">
                     Bring your vision to life with Shardeum
                   </h1>
                   <h3 className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text p-4 font-semibold text-transparent hover:from-pink-600 hover:to-purple-400 lg:text-3xl">
@@ -89,9 +89,12 @@ const Submit: NextPage = () => {
                       <span className="">Name of the Project</span>
                     </label>
                     <input
+                      required
                       type="text"
                       className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
                       placeholder="Project name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
                     />
                   </div>
 
@@ -102,9 +105,12 @@ const Submit: NextPage = () => {
                       </span>
                     </label>
                     <input
+                      required
                       type="text"
                       className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
                       placeholder="Short description"
+                      value={about}
+                      onChange={(e) => setAbout(e.target.value)}
                     />
                   </div>
 
@@ -113,8 +119,11 @@ const Submit: NextPage = () => {
                       <span className="">Description</span>
                     </label>
                     <textarea
+                      required
                       className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
                       placeholder="Full Description about your project"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -122,9 +131,12 @@ const Submit: NextPage = () => {
                       <span className="">Website Link</span>
                     </label>
                     <input
-                      type="email"
+                      required
+                      type="text"
                       className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
                       placeholder="Website"
+                      value={website}
+                      onChange={(e) => setWebsite(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -132,9 +144,12 @@ const Submit: NextPage = () => {
                       <span className="">Discord Link</span>
                     </label>
                     <input
-                      type="email"
+                      required
+                      type="text"
                       className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
                       placeholder="Discord Link"
+                      value={discordLink}
+                      onChange={(e) => setDiscordLink(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -145,9 +160,12 @@ const Submit: NextPage = () => {
                       <span className="">Github Link</span>
                     </label>
                     <input
-                      type="email"
+                      required
+                      type="texr"
                       className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
                       placeholder="Github Link"
+                      value={githubLink}
+                      onChange={(e) => setGithubLink(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -158,9 +176,12 @@ const Submit: NextPage = () => {
                       <span className="">Twitter Link</span>
                     </label>
                     <input
-                      type="email"
+                      required
+                      type="text"
                       className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
                       placeholder="Twitter Link"
+                      value={twitterLink}
+                      onChange={(e) => setTwitterLink(e.target.value)}
                     />
                   </div>
                   <div className="mb-4">
@@ -171,9 +192,11 @@ const Submit: NextPage = () => {
                       <span className="">Keywords</span>
                     </label>
                     <input
-                      type="email"
+                      required
+                      type="text"
                       className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
                       placeholder="easy,efficient,shardeum,evm"
+                      onChange={(e) => handleKeywordChange(e)}
                     />
                   </div>
 
@@ -184,7 +207,11 @@ const Submit: NextPage = () => {
                     >
                       <span className="">Categories</span>
                     </label>
-                    <select className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4">
+                    <select
+                      name="CATEGORY"
+                      onChange={(e) => setCategory(e.target.value as Category)}
+                      className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
+                    >
                       <option value={Category.NFT}>NFT</option>
                       <option value={Category.DEFI}>DEFI</option>
                       <option value={Category.GAMING}>GAMING</option>
@@ -238,12 +265,12 @@ const Submit: NextPage = () => {
                     </svg>
                   </div>
                   <div className="grid">
-                    <button
+                    <input
+                      onSubmit={() => onSubmitBtn()}
+                      onClick={() => onSubmitBtn()}
                       type="submit"
                       className="inline-flex  items-center justify-center gap-2 rounded-md border border-transparent bg-gradient-to-r from-purple-400 to-pink-600  py-3 px-4   text-sm font-semibold text-white transition-all hover:from-pink-600 hover:to-purple-400  focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 dark:focus:ring-offset-gray-800 sm:p-4"
-                    >
-                      Submit
-                    </button>
+                    />
                   </div>
                 </form>
 

@@ -21,9 +21,9 @@ const Home: NextPage = () => {
       <div className="relative overflow-hidden before:absolute before:top-0 before:left-1/2 before:-z-[1] before:h-full before:w-full before:-translate-x-1/2 before:transform  before:bg-cover before:bg-top before:bg-no-repeat ">
         <div className="mx-auto max-w-[85rem] px-4 pt-24 pb-10 sm:px-6 lg:px-8">
           <div className="flex justify-center">
-            <a
+            <Link
               className="inline-flex items-center gap-x-2 rounded-full border border-transparent  bg-white bg-gradient-to-tl from-secondary to-ter p-1 pl-3 text-sm font-semibold italic text-accent  transition hover:from-ter  hover:to-secondary dark:bg-gray-800 dark:text-primary "
-              href="#"
+              href="/project"
             >
               Explore All projects
               <span className="mr-3">
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
                   />
                 </svg>
               </span>
-            </a>
+            </Link>
           </div>
 
           <div className="mx-auto mt-5 max-w-2xl text-center">
@@ -67,7 +67,7 @@ const Home: NextPage = () => {
 
           <div className="mt-8 grid w-full gap-3 sm:inline-flex sm:justify-center">
             <span className="group relative inline-flex items-center justify-center gap-x-3.5 rounded-md border bg-white p-2 pl-4 pr-4 text-center font-mono text-sm font-medium shadow-sm transition hover:border-ter focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white dark:border-gray-800 dark:bg-slate-900 dark:text-white dark:shadow-slate-700/[.7] dark:hover:border-ter dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
-              $ count: {projectCounts.data}
+              $ count: {projectCounts.data ? projectCounts.data : "_"}
             </span>
           </div>
 

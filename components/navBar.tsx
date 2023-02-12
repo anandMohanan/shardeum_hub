@@ -70,7 +70,7 @@ export const NavBar = () => {
             <div className="md:hidden">
               <button
                 type="button"
-                className="hs-collapse-toggle dark:bg-slate inline-flex items-center justify-center gap-2 rounded-full border bg-white p-2 align-middle text-sm font-medium text-primary shadow-sm transition-all hover:bg-accent focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-white dark:border-secondary dark:text-accent dark:hover:bg-primary dark:hover:text-accent dark:focus:ring-offset-primary"
+                className="hs-collapse-toggle dark:bg-slate bg-purple inline-flex items-center justify-center gap-2 rounded-full border p-2 align-middle text-sm font-medium text-primary shadow-sm transition-all hover:bg-accent focus:outline-none  focus:ring-offset-white dark:border-secondary dark:text-accent dark:hover:bg-primary dark:hover:text-accent dark:focus:ring-offset-primary"
                 data-hs-collapse="#navbar-collapse-with-animation"
                 aria-controls="navbar-collapse-with-animation"
                 aria-label="Toggle navigation"

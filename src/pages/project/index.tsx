@@ -7,8 +7,9 @@ const allProject = () => {
 
   return (
     <>
-      <h1>hi</h1>
+      {/* <div className="mx-auto max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14"> */}
       <ProjectDetail queryProjects={data!} />
+      {/* </div> */}
     </>
   );
 };
