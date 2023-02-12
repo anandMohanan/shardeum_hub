@@ -60,13 +60,13 @@ export const NavBar = () => {
         >
           <div className="flex items-center justify-between">
             {renderThemeChanger()}
-            <a
+            <Link
               className="flex-none text-xl font-semibold dark:text-accent"
-              href="#"
+              href="/"
               aria-label="Shardeum Hub"
             >
               Shardeum Hub
-            </a>
+            </Link>
             <div className="md:hidden">
               <button
                 type="button"
@@ -104,13 +104,13 @@ export const NavBar = () => {
             className="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 md:block"
           >
             <div className="mt-5 flex flex-col gap-y-4 gap-x-0 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-y-0 md:gap-x-7 md:pl-7">
-              <a
+              <Link
                 className="font-medium text-primary dark:text-accent md:py-6"
-                href="#"
+                href="/about"
                 aria-current="page"
               >
                 About
-              </a>
+              </Link>
 
               <div className="hs-dropdown [--strategy:static] [--adaptive:none] md:py-4 md:[--strategy:fixed] md:[--trigger:hover]">
                 <button
@@ -136,39 +136,39 @@ export const NavBar = () => {
                 </button>
 
                 <div className="hs-dropdown-menu top-full z-10 hidden rounded-lg bg-primary p-2 opacity-0 transition-[opacity,margin] duration-[0.1ms] before:absolute before:-top-5 before:left-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800 md:w-48 md:border md:shadow-md md:duration-[150ms] md:dark:border">
-                  <a
+                  <Link
                     className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-accent hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
-                    href="#"
+                    href="/categories/nft"
                   >
                     Nft
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     className="flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-accent hover:bg-secondary focus:ring-2 focus:ring-blue-500 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
-                    href="#"
+                    href="/categories/defi"
                   >
                     Defi
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-accent hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
-                    href="#"
+                    href="/categories/gaming"
                   >
                     Gaming
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-accent hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
-                    href="#"
+                    href="/categories/other"
                   >
                     Others
-                  </a>
+                  </Link>
                 </div>
               </div>
 
-              <a
+              <Link
                 className="font-medium text-secondary underline decoration-ter decoration-wavy hover:text-ter dark:text-accent dark:hover:text-ter md:py-6"
-                href="#"
+                href="/submit"
               >
                 Submit
-              </a>
+              </Link>
             </div>
           </div>
         </nav>

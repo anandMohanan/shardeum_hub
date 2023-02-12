@@ -48,7 +48,7 @@ const Home: NextPage = () => {
 
           <div className="mx-auto mt-5 max-w-2xl text-center">
             <h1 className="text-primary-800 dark:text-primary-200 block text-4xl font-bold md:text-5xl lg:text-6xl">
-              Let's Build in{" "}
+              Let&apos;s Build in{" "}
               <span className=" bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent">
                 Shardeum
               </span>
