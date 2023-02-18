@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Loader } from "../../../components/loader";
 import { api } from "../../utils/api";
 
 const SingleProject = () => {
   const router = useRouter();
   const metadata_name: string = router.query.metadata_name! as string;
-  const { data } = api.project.getProjectByName.useQuery({
+  const { data, isLoading } = api.project.getProjectByName.useQuery({
     name: metadata_name,
   });
+  if (isLoading) return <Loader />;
 
   return (
     <>

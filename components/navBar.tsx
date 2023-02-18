@@ -83,7 +83,7 @@ export const NavBar = () => {
                   viewBox="0 0 16 16"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
                   />
                 </svg>
@@ -129,33 +129,33 @@ export const NavBar = () => {
                     <path
                       d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
                     ></path>
                   </svg>
                 </button>
 
-                <div className="hs-dropdown-menu top-full z-10 hidden rounded-lg bg-primary p-2 opacity-0 transition-[opacity,margin] duration-[0.1ms] before:absolute before:-top-5 before:left-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-800 md:w-48 md:border md:shadow-md md:duration-[150ms] md:dark:border">
+                <div className="hs-dropdown-menu top-full z-10 hidden rounded-lg bg-white p-2 opacity-0 transition-[opacity,margin] duration-[0.1ms] before:absolute before:-top-5 before:left-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 dark:divide-gray-700 dark:border-gray-700 dark:bg-primary md:w-48 md:border md:shadow-md md:duration-[150ms] md:dark:border">
                   <Link
-                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-accent hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
+                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
                     href="/categories/nft"
                   >
                     Nft
                   </Link>
                   <Link
-                    className="flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-accent hover:bg-secondary focus:ring-2 focus:ring-blue-500 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
+                    className="flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-secondary focus:ring-2 focus:ring-blue-500 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
                     href="/categories/defi"
                   >
                     Defi
                   </Link>
                   <Link
-                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-accent hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
+                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
                     href="/categories/gaming"
                   >
                     Gaming
                   </Link>
                   <Link
-                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-accent hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
+                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
                     href="/categories/other"
                   >
                     Others

@@ -54,6 +54,7 @@ const Submit: NextPage = () => {
         category,
         githubLink,
         keywords: keyword,
+        logoUrl: "",
       });
     }
   };

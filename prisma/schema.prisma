@@ -21,6 +21,7 @@ model SharediumProject {
     name String @unique
     description String
     about String
+    logoUrl String @default("no_image")
     // keywords String[]
     twitterLink String
     githubLink String

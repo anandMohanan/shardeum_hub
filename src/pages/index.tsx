@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import { Loader } from "../../components/loader";
 import { NavBar } from "../../components/navBar";
 import { ProjectDetail } from "../../components/projectDetail";
 // import {} from "next/font/google";
@@ -9,7 +10,9 @@ import { api } from "../utils/api";
 
 const Home: NextPage = () => {
   const projectCounts = api.project.getProjectCount.useQuery();
-  const { data } = api.project.getAllProjects.useQuery();
+  const { data, isLoading } = api.project.getAllProjects.useQuery();
+
+  if (isLoading) return <Loader />;
 
   return (
     <>
@@ -19,10 +22,10 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="relative overflow-hidden before:absolute before:top-0 before:left-1/2 before:-z-[1] before:h-full before:w-full before:-translate-x-1/2 before:transform  before:bg-cover before:bg-top before:bg-no-repeat ">
-        <div className="mx-auto max-w-[85rem] px-4 pt-24 pb-10 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[85rem] px-4 pt-24 pb-5 sm:px-6 lg:px-8">
           <div className="flex justify-center">
             <Link
-              className="inline-flex items-center gap-x-2 rounded-full border border-transparent  bg-white bg-gradient-to-tl from-secondary to-ter p-1 pl-3 text-sm font-semibold italic text-accent  transition hover:from-ter  hover:to-secondary dark:bg-gray-800 dark:text-primary "
+              className="inline-flex items-center gap-x-2 rounded-full border border-transparent  bg-white bg-gradient-to-tl from-ter to-pink-500 p-1 pl-3 text-sm font-semibold italic text-primary  transition hover:from-pink-500  hover:to-ter dark:bg-gray-800 dark:text-accent "
               href="/project"
             >
               Explore All projects
@@ -37,8 +40,8 @@ const Home: NextPage = () => {
                   <path
                     d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
                   />
                 </svg>
               </span>
@@ -90,7 +93,7 @@ const Home: NextPage = () => {
               <path
                 d="M6 13L10 3"
                 stroke="currentColor"
-                stroke-linecap="round"
+                strokeLinecap="round"
               />
             </svg>
             <a
@@ -108,8 +111,8 @@ const Home: NextPage = () => {
                 <path
                   d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
                 />
               </svg>
             </a>
@@ -118,7 +121,7 @@ const Home: NextPage = () => {
       </div>
 
       <section>
-        <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             <Link
               className="group flex flex-col rounded-xl border bg-white shadow-sm transition hover:border-secondary hover:shadow-md dark:border-gray-800 dark:bg-slate-900 hover:dark:border-secondary"
@@ -210,6 +213,37 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </Link>
+          </div>
+        </div>
+      </section>
+      <hr className="mx-auto  my-6 h-1 w-80 rounded border-0 bg-secondary dark:bg-ter md:my-10" />
+      <section>
+        <h2 className="mb-2 text-center text-2xl font-bold lg:text-4xl ">
+          Discover All projects
+        </h2>
+        <div className=" px-4 py-10 sm:px-6 ">
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+            {data?.map((project) => {
+              return (
+                <Link
+                  key={project.id}
+                  className="group flex flex-col rounded-xl border bg-white shadow-sm transition hover:border-secondary hover:shadow-md dark:border-gray-800 dark:bg-slate-900 hover:dark:border-secondary"
+                  href={`/project/${project.name}`}
+                >
+                  <div className="p-4 md:p-5">
+                    <div className="flex">
+                      <img src="no image" />
+                      <div className="ml-5 grow">
+                        <h3 className="font-semibold text-gray-800 group-hover:text-ter dark:text-gray-200 dark:group-hover:text-ter">
+                          {project.name}
+                        </h3>
+                        <p className="text-sm text-gray-500">{project.about}</p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
