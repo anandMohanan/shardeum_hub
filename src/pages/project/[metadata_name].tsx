@@ -20,8 +20,8 @@ const SingleProject = () => {
             <div className="flex w-full gap-x-5 sm:items-center sm:gap-x-3">
               <div className="flex-shrink-0">
                 <img
-                  className="h-12 w-12 rounded-full"
-                  src={data?.name}
+                  className="inline-block h-[3.234rem] w-[3.500rem] rounded-full ring-2 ring-ter dark:ring-secondary lg:w-[3.875rem]"
+                  src={data?.logoUrl}
                   alt="Image Description"
                 />
               </div>

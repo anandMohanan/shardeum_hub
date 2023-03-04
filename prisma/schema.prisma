@@ -27,6 +27,7 @@ model SharediumProject {
     githubLink String
     website String
     discordLink String
+    contactEmail String @default("")
     approved Boolean @default(false)
     category Category @default(OTHER)
     keywords String[]

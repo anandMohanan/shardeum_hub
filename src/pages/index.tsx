@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Loader } from "../../components/loader";
 import { NavBar } from "../../components/navBar";
 import { ProjectDetail } from "../../components/projectDetail";
+import { SlidingText } from "../../components/slidingText";
 // import {} from "next/font/google";
 
 import { api } from "../utils/api";
@@ -124,7 +125,7 @@ const Home: NextPage = () => {
         <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             <Link
-              className="group flex flex-col rounded-xl border bg-white shadow-sm transition hover:border-secondary hover:shadow-md dark:border-gray-800 dark:bg-slate-900 hover:dark:border-secondary"
+              className="group flex flex-col rounded-xl border bg-white shadow-sm transition  hover:shadow-md dark:border-gray-800 dark:bg-slate-900 "
               href="https://discord.com/invite/shardeum"
             >
               <div className="p-4 md:p-5">
@@ -153,7 +154,7 @@ const Home: NextPage = () => {
             </Link>
 
             <Link
-              className="group flex flex-col rounded-xl border bg-white shadow-sm transition hover:border-secondary hover:shadow-md dark:border-gray-800 dark:bg-slate-900 hover:dark:border-secondary"
+              className="group flex flex-col rounded-xl border bg-white shadow-sm transition hover:shadow-md dark:border-gray-800 dark:bg-slate-900"
               href="https://docs.shardeum.org/"
             >
               <div className="p-4 md:p-5">
@@ -183,7 +184,7 @@ const Home: NextPage = () => {
             </Link>
 
             <Link
-              className="group flex flex-col rounded-xl border bg-white shadow-sm transition hover:border-secondary hover:shadow-md dark:border-gray-800 dark:bg-slate-900 hover:dark:border-secondary"
+              className="group flex flex-col rounded-xl border bg-white shadow-sm transition  hover:shadow-md dark:border-gray-800 dark:bg-slate-900 "
               href="#"
             >
               <div className="p-4 md:p-5">
@@ -216,6 +217,8 @@ const Home: NextPage = () => {
           </div>
         </div>
       </section>
+
+      <SlidingText />
       <hr className="mx-auto  my-6 h-1 w-80 rounded border-0 bg-secondary dark:bg-ter md:my-10" />
       <section>
         <h2 className="mb-2 text-center text-2xl font-bold lg:text-4xl ">
@@ -232,7 +235,10 @@ const Home: NextPage = () => {
                 >
                   <div className="p-4 md:p-5">
                     <div className="flex">
-                      <img src="no image" />
+                      <img
+                        className="inline-block h-[3.234rem] w-[3.500rem] rounded-full ring-2 ring-ter dark:ring-secondary lg:w-[3.875rem]"
+                        src={project.logoUrl}
+                      />
                       <div className="ml-5 grow">
                         <h3 className="font-semibold text-gray-800 group-hover:text-ter dark:text-gray-200 dark:group-hover:text-ter">
                           {project.name}

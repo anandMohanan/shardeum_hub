@@ -64,7 +64,7 @@ export const ProjectDetail = ({
                 <div className="p-4 md:p-5">
                   <div className="flex">
                     <img
-                      className="inline-block h-[2.875rem] w-[4.875rem] rounded-full ring-2 ring-white dark:ring-gray-800 lg:w-[4.875rem]"
+                      className="inline-block h-[3.234rem] w-[3.500rem] rounded-full ring-2 ring-ter dark:ring-secondary lg:w-[3.875rem]"
                       src={project.logoUrl ? project.logoUrl : "no image "}
                       alt={project.name}
                     />
@@ -91,7 +91,7 @@ export const ProjectDetail = ({
                     </svg>
                   </Link>
                   <Link
-                    className="inline-flex h-10 w-10 items-center justify-center gap-x-3.5 rounded-md text-center text-gray-200 transition hover:bg-white/[.1] focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-gray-900"
+                    className="lr-only inline-flex h-10 w-10 items-center justify-center gap-x-3.5 rounded-md text-center text-gray-200 transition hover:bg-white/[.1] focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-gray-900"
                     href={project?.twitterLink ? project?.twitterLink : "#"}
                   >
                     <svg

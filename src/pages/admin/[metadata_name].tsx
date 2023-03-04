@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import {
+  JSXElementConstructor,
+  Key,
+  ReactElement,
+  ReactFragment,
+  useEffect,
+  useState,
+} from "react";
 import { Loader } from "../../../components/loader";
 import { api } from "../../utils/api";
 
@@ -16,29 +23,26 @@ const AdminApproveProject = () => {
   const deleteMutation = api.approval.deleteProject.useMutation();
   if (isLoading) return <Loader />;
   const changeApprovalButton = (id: string) => {
-    approveMutation.mutate({ id: id, status: true });
-    setTimeout(() => {
-      console.log("Approval ongoing");
-    }, 5000);
-
-    setApprovalDone(true);
-    setTimeout(() => {
-      console.log("Approval done");
-    }, 1000000); // error
-    router.push("/admin/mainAdmin").catch((e) => console.log(e)); // error
+    approveMutation
+      .mutateAsync({ id: id, status: true })
+      .then(() => {
+        router.push("/admin/mainAdmin").catch((e) => console.log(e)); // error
+      })
+      .catch((e) => console.log(e));
   };
-
+  if (approveMutation.isLoading) return <Loader />;
   const deleteButton = (id: string) => {
-    deleteMutation.mutate({ id });
-    setTimeout(() => {
-      console.log("Delete ongoing");
-    }, 5000);
-    setDeleteDone(true);
-    setTimeout(() => {
-      console.log("Delete done");
-    }, 1000000); // error
-    router.push("/admin/mainAdmin").catch((e) => console.log(e)); // error
+    deleteMutation
+      .mutateAsync({ id })
+      .then(() => {
+        if (deleteMutation.isLoading) {
+          setDeleteDone(true);
+        }
+        router.push("/admin/mainAdmin").catch((e) => console.log(e)); // error
+      })
+      .catch((e) => console.log(e));
   };
+  if (deleteMutation.isLoading) return <Loader />;
 
   return (
     <>
@@ -48,8 +52,8 @@ const AdminApproveProject = () => {
             <div className="flex w-full gap-x-5 sm:items-center sm:gap-x-3">
               <div className="flex-shrink-0">
                 <img
-                  className="h-12 w-12 rounded-full"
-                  src={data?.name}
+                  className="inline-block h-[3.234rem] w-[3.500rem] rounded-full ring-2 ring-ter dark:ring-secondary lg:w-[3.875rem]"
+                  src={data?.logoUrl}
                   alt="Image Description"
                 />
               </div>
@@ -171,8 +175,7 @@ const AdminApproveProject = () => {
                     )}
 
                     <button
-                      type="button"
-                      className="inline-flex items-center justify-center gap-2  bg-white py-3 py-3 px-4 px-4 align-middle text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-ter focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-gray-700 dark:bg-slate-900 dark:text-red-500 dark:hover:bg-ter dark:hover:text-white dark:focus:ring-offset-gray-800"
+                      className="inline-flex items-center justify-center gap-2 border-none bg-white  py-3 py-3 px-4 px-4 align-middle text-sm font-medium text-gray-700 shadow-sm outline-none transition-all hover:bg-ter focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-gray-700 dark:bg-slate-900 dark:text-red-500 dark:hover:bg-ter dark:hover:text-white dark:focus:ring-offset-gray-800"
                       onClick={() => deleteButton(data ? data.id : "")}
                     >
                       Delete

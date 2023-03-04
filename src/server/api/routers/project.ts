@@ -19,6 +19,7 @@ export const projectRouter = createTRPCRouter({
         keywords: z.array(z.string()),
         githubLink: z.string(),
         logoUrl: z.string(),
+        contactEmail: z.string(),
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -35,6 +36,7 @@ export const projectRouter = createTRPCRouter({
           category: input.category,
           keywords: input.keywords,
           logoUrl: input.logoUrl,
+          contactEmail: input.contactEmail,
         },
       });
 
@@ -46,6 +48,27 @@ export const projectRouter = createTRPCRouter({
       where: { approved: true },
     });
     return count;
+  }),
+
+  getNftCount: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.sharediumProject.count({
+      where: { category: VALUES[1] },
+    });
+  }),
+  getDefiCount: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.sharediumProject.count({
+      where: { category: VALUES[0] },
+    });
+  }),
+  getGamingCount: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.sharediumProject.count({
+      where: { category: VALUES[2] },
+    });
+  }),
+  getOtherCount: publicProcedure.query(({ ctx }) => {
+    return ctx.prisma.sharediumProject.count({
+      where: { category: VALUES[3] },
+    });
   }),
 
   getAllProjects: publicProcedure.query(({ ctx }) => {

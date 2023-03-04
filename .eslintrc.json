@@ -19,6 +19,15 @@
   "rules": {
     "@typescript-eslint/consistent-type-imports": "error",
     "@typescript-eslint/no-misused-promises": "warn",
-    "@typescript-eslint/no-unsafe-assignment": "warn"
+    "@typescript-eslint/no-unsafe-assignment": "warn",
+
+    "@typescript-eslint/no-misused-promises": [
+      2,
+      {
+        "checksVoidReturn": {
+          "attributes": false
+        }
+      }
+    ]
   }
 }
