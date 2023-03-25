@@ -1,8 +1,13 @@
 import { useRouter } from "next/router";
 import { type ChangeEvent, useState } from "react";
-import { useForm, type SubmitHandler } from "react-hook-form";
+// import { useForm, type SubmitHandler } from "react-hook-form";
 import { api } from "../src/utils/api";
 import { Loader } from "./loader";
+import { marked } from "marked";
+import { supabase } from "../src/utils/supabase";
+import { AlertComponent } from "./alert";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 enum Category {
   DEFI = "DEFI",
@@ -11,7 +16,7 @@ enum Category {
   OTHER = "OTHER",
 }
 
-type inputs = {
+interface inputs {
   name: string;
   about: string;
   description: string;
@@ -23,47 +28,97 @@ type inputs = {
   twitter: string;
 
   category: Category;
-};
+}
 
 export const SubmitForm = () => {
   const [keyword, setKeyword] = useState<string[]>([]);
+  const inputObj: {
+    name: string;
+    about: string;
+    description: string;
+    website: string;
+    email: string;
+    discord: string;
+    logo: string;
+    github: string;
+    twitter: string;
+    category: Category;
+  } = {
+    name: "",
+    about: "",
+    category: Category.OTHER,
+    description: "",
+    discord: "",
+    email: "",
+    github: "",
+    logo: "",
+    twitter: "",
+    website: "",
+  };
+  const [controlData, setControlData] = useState(inputObj);
   const router = useRouter();
   const [submitDone, setSubmitDone] = useState<boolean>(false);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<inputs>();
+  console.log(controlData);
 
   const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value.split(","));
-    console.log(keyword);
   };
   const res = api.project.createSharediumProject.useMutation();
-  const onSubmit: SubmitHandler<inputs> = (data) => {
+  const Submit = () => {
     res.mutate({
-      about: data.about,
-      category: data.category,
-      contactEmail: data.email,
-      description: data.description,
-      discordLink: data.discord,
-      githubLink: data.github,
+      about: controlData.about,
+      category: controlData.category,
+      contactEmail: controlData.email,
+      description: controlData.description,
+      discordLink: controlData.discord,
+      githubLink: controlData.github,
       keywords: keyword,
-      logoUrl: data.logo,
-      name: data.name,
-      twitterLink: data.twitter,
-      website: data.website,
+      logoUrl: controlData.logo,
+      name: controlData.name,
+      twitterLink: controlData.twitter,
+      website: controlData.website,
     });
-
-    if (res.isLoading) return <Loader />;
 
     console.log("submitted successfully");
   };
 
+  const uploadFiles = async (e: ChangeEvent<HTMLInputElement>) => {
+    let file;
+    if (e.target.files) {
+      file = e.target.files[0];
+    }
+    console.log(file);
+
+    const { data, error } = await supabase.storage
+      .from("logo")
+      .upload(`${controlData.name}/${file?.name!}`, file as File);
+    const { data: imageList, error: imageError } = await supabase.storage
+      .from("logo")
+      .list(`${controlData.name}`, {
+        limit: 1,
+        offset: 0,
+      });
+    console.log("data", data);
+
+    imageList?.forEach((image) => {
+      const { data } = supabase.storage
+        .from("logo")
+        .getPublicUrl(`${controlData.name}/${image.name}`);
+      setControlData({ ...controlData, logo: data.publicUrl });
+    });
+    console.log("logo", controlData.logo);
+  };
+
+  if (res.isLoading) return <Loader />;
+  // if (res.status == "success")
+  if (res.isSuccess) {
+    router.push("/").catch((e) => console.log(e));
+    return <AlertComponent process="submit" />;
+  }
+
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={() => Submit()}>
         <div className="mb-4">
           <label className="block py-1 text-sm font-medium dark:text-white">
             <span className="">Name of the Project</span>
@@ -71,7 +126,9 @@ export const SubmitForm = () => {
           <input
             required
             type="text"
-            {...register("name")}
+            onChange={(e) => {
+              setControlData({ ...controlData, name: e.target.value });
+            }}
             className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
             placeholder="Project name"
           />
@@ -83,7 +140,9 @@ export const SubmitForm = () => {
           </label>
           <input
             required
-            {...register("about")}
+            onChange={(e) => {
+              setControlData({ ...controlData, about: e.target.value });
+            }}
             type="text"
             className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
             placeholder="Short description"
@@ -96,9 +155,22 @@ export const SubmitForm = () => {
           </label>
           <textarea
             required
-            {...register("description")}
+            onChange={(e) => {
+              setControlData({ ...controlData, description: e.target.value });
+            }}
             className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
             placeholder="Full Description about your project"
+          />
+        </div>
+        <div>
+          <h2>Preview:</h2>
+          {/* <div
+          id="markdown-output"
+          dangerouslySetInnerHTML={{ __html: marked(controlData.description) }}
+        /> */}
+          <ReactMarkdown
+            children={controlData.description}
+            remarkPlugins={[remarkGfm]}
           />
         </div>
         <div className="mb-4">
@@ -108,7 +180,9 @@ export const SubmitForm = () => {
           <input
             required
             type="text"
-            {...register("website")}
+            onChange={(e) => {
+              setControlData({ ...controlData, website: e.target.value });
+            }}
             className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
             placeholder="Website"
           />
@@ -119,8 +193,10 @@ export const SubmitForm = () => {
           </label>
           <input
             required
-            type="text"
-            {...register("email")}
+            type="email"
+            onChange={(e) => {
+              setControlData({ ...controlData, email: e.target.value });
+            }}
             className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
             placeholder="Email Address"
           />
@@ -130,9 +206,10 @@ export const SubmitForm = () => {
             <span className="">Discord Link</span>
           </label>
           <input
-            required
-            {...register("discord")}
-            type="text"
+            onChange={(e) => {
+              setControlData({ ...controlData, discord: e.target.value });
+            }}
+            type="url"
             className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
             placeholder="Discord Link"
           />
@@ -142,14 +219,20 @@ export const SubmitForm = () => {
             htmlFor="hs-hero-password-2"
             className="block py-1 text-sm font-medium dark:text-white"
           >
-            <span className="">Logo url</span>
+            <span className="">Project Logo</span>
           </label>
+
           <input
-            required
-            type="text"
-            {...register("logo")}
+            type="file"
+            accept="image/*"
+            name="title"
+            onChange={(e) => {
+              uploadFiles(e).catch((err) => console.log(err));
+            }}
+            id="form-nftImage"
             className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
-            placeholder="Logo url"
+            placeholder="Project Logo"
+            required
           />
         </div>
         <div className="mb-4">
@@ -160,9 +243,10 @@ export const SubmitForm = () => {
             <span className="">Github Link</span>
           </label>
           <input
-            required
-            {...register("github")}
-            type="text"
+            onChange={(e) => {
+              setControlData({ ...controlData, github: e.target.value });
+            }}
+            type="url"
             className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
             placeholder="Github Link"
           />
@@ -175,9 +259,10 @@ export const SubmitForm = () => {
             <span className="">Twitter Link</span>
           </label>
           <input
-            required
-            type="text"
-            {...register("twitter")}
+            type="url"
+            onChange={(e) => {
+              setControlData({ ...controlData, twitter: e.target.value });
+            }}
             className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
             placeholder="Twitter Link"
           />
@@ -206,7 +291,12 @@ export const SubmitForm = () => {
             <span className="">Categories</span>
           </label>
           <select
-            {...register("category")}
+            onChange={(e) => {
+              setControlData({
+                ...controlData,
+                category: e.target.value as Category,
+              });
+            }}
             className="block w-full rounded-md border-gray-200 py-3 px-4 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-secondary dark:bg-slate-900 dark:text-gray-400 sm:p-4"
           >
             <option value={Category.NFT}>NFT</option>
@@ -219,30 +309,11 @@ export const SubmitForm = () => {
         <div className="grid">
           <input
             type="submit"
+            // onClick={() => Submit()}
             className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-md border border-transparent bg-gradient-to-r from-purple-400 to-pink-600  py-3 px-4   text-sm font-semibold text-white transition-all hover:from-pink-600 hover:to-purple-400  focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 dark:focus:ring-offset-gray-800 sm:p-4"
           />
         </div>
       </form>
-      {submitDone && (
-        <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
-          <div
-            className="max-w-xs rounded-md border bg-white shadow-lg dark:border-gray-700 dark:bg-gray-800"
-            role="alert"
-          >
-            <div className="p-2 sm:p-4">
-              <h3 className="text-xs font-semibold text-gray-800 dark:text-white sm:text-base">
-                Submitted Successfully, we will notify the update to you soon
-              </h3>
-              <h2 className="mt-10 mb-7 text-center text-2xl font-bold lg:text-4xl">
-                Redirecting back to
-                <span className=" bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent  hover:from-pink-600 hover:to-purple-400">
-                  /
-                </span>{" "}
-              </h2>
-            </div>
-          </div>
-        </div>
-      )}
     </>
   );
 };

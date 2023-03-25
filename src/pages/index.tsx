@@ -4,16 +4,28 @@ import Link from "next/link";
 import { Loader } from "../../components/loader";
 import { NavBar } from "../../components/navBar";
 import { ProjectDetail } from "../../components/projectDetail";
+import { SearchInput } from "../../components/searchInput";
 import { SlidingText } from "../../components/slidingText";
-// import {} from "next/font/google";
+import { IBM_Plex_Mono } from "@next/font/google";
 
 import { api } from "../utils/api";
 
+export const ibm = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-ibm",
+  display: "swap",
+  weight: "400",
+});
+
 const Home: NextPage = () => {
   const projectCounts = api.project.getProjectCount.useQuery();
-  const { data, isLoading } = api.project.getAllProjects.useQuery();
+  // const { data, isLoading } = api.project.getAllProjects.useQuery();
+  const nftProjects = api.filterByCategory.fiveNft.useQuery();
+  const defiProjects = api.filterByCategory.fiveDefi.useQuery();
+  const gamingProjects = api.filterByCategory.fiveGaming.useQuery();
+  const otherProjects = api.filterByCategory.fiveOther.useQuery();
 
-  if (isLoading) return <Loader />;
+  // if (isLoading) return <Loader />;
 
   return (
     <>
@@ -21,36 +33,13 @@ const Home: NextPage = () => {
         <title>Shardeum Hub</title>
         <meta name="description" content="Showcase your shardeum projects" />
       </Head>
-
+      <SearchInput />
       <div className="relative overflow-hidden before:absolute before:top-0 before:left-1/2 before:-z-[1] before:h-full before:w-full before:-translate-x-1/2 before:transform  before:bg-cover before:bg-top before:bg-no-repeat ">
-        <div className="mx-auto max-w-[85rem] px-4 pt-24 pb-5 sm:px-6 lg:px-8">
-          <div className="flex justify-center">
-            <Link
-              className="inline-flex items-center gap-x-2 rounded-full border border-transparent  bg-white bg-gradient-to-tl from-ter to-pink-500 p-1 pl-3 text-sm font-semibold italic text-primary  transition hover:from-pink-500  hover:to-ter dark:bg-gray-800 dark:text-accent "
-              href="/project"
+        <div className="mx-auto max-w-[85rem] px-4 pt-16 pb-5 sm:px-6 lg:px-8">
+          <div className="mx-auto  max-w-2xl text-center">
+            <h1
+              className={`${ibm.className} text-primary-800 dark:text-primary-200 block text-4xl   font-extrabold md:text-5xl lg:text-6xl`}
             >
-              Explore All projects
-              <span className="mr-3">
-                <svg
-                  className="h-2 w-2"
-                  // width="10"
-                  // height="10"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-            </Link>
-          </div>
-
-          <div className="mx-auto mt-5 max-w-2xl text-center">
-            <h1 className="text-primary-800 dark:text-primary-200 block text-4xl font-bold md:text-5xl lg:text-6xl">
               Let&apos;s Build in{" "}
               <span className=" bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent  hover:from-pink-600 hover:to-purple-400">
                 Shardeum
@@ -59,7 +48,9 @@ const Home: NextPage = () => {
           </div>
 
           <div className="mx-auto mt-5 max-w-3xl text-center">
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p
+              className={`${ibm.className} text-lg text-gray-600 dark:text-gray-400`}
+            >
               Welcome to Shardeum, where creativity meets innovation through
               decentralized projects built on our blockchain technology. Each
               project built on Shardeum represents a unique application of
@@ -70,16 +61,22 @@ const Home: NextPage = () => {
           </div>
 
           <div className="mt-8 grid w-full gap-3 sm:inline-flex sm:justify-center">
-            <span className="group relative inline-flex items-center justify-center gap-x-3.5 rounded-md border bg-white p-2 pl-4 pr-4 text-center font-mono text-sm font-medium shadow-sm transition hover:border-ter focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white dark:border-gray-800 dark:bg-slate-900 dark:text-white dark:shadow-slate-700/[.7] dark:hover:border-ter dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800">
-              $ count: {projectCounts.data ? projectCounts.data : "_"}
+            <span
+              className={`${ibm.className} group relative inline-flex items-center justify-center gap-x-3.5 rounded-md border bg-black p-2 pl-4 pr-4 text-center font-mono text-sm font-medium text-white shadow-sm transition hover:border-ter focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white  dark:border-gray-800 dark:bg-white dark:text-black dark:shadow-slate-700/[.7] dark:hover:border-ter dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800`}
+            >
+              count: {projectCounts.data ? projectCounts.data : "_"}
             </span>
           </div>
 
-          <div className="mt-5 flex items-center justify-center gap-x-1 sm:gap-x-3">
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+          <div className="mt-8 mb-8 flex items-center justify-center gap-x-1 sm:gap-x-3">
+            <span
+              className={` ${ibm.className} text-sm text-gray-600 dark:text-gray-400`}
+            >
               How to build in Shardeum:
             </span>
-            <span className="text-sm font-bold text-gray-900 dark:text-white">
+            <span
+              className={`${ibm.className}  text-sm font-bold text-gray-900 dark:text-white`}
+            >
               Solidity
             </span>
             <svg
@@ -98,7 +95,7 @@ const Home: NextPage = () => {
               />
             </svg>
             <a
-              className="inline-flex items-center gap-x-1.5 text-sm font-medium text-secondary decoration-ter decoration-wavy hover:underline"
+              className={`${ibm.className} inline-flex items-center gap-x-1.5 text-sm font-medium text-secondary decoration-ter decoration-wavy hover:underline`}
               href="https://docs.shardeum.org/"
             >
               Shardeum docs
@@ -121,11 +118,202 @@ const Home: NextPage = () => {
         </div>
       </div>
 
+      <SlidingText />
+      <hr className="mx-auto  my-6 h-1 w-80 rounded border-0 bg-black dark:bg-white md:my-10" />
+      <section>
+        <div className="flex justify-center blur-0 filter lg:mb-20">
+          <Link
+            className={`${ibm.className} blur- inline-flex items-center gap-x-2 border-dotted  border-black   bg-white bg-gradient-to-r from-pink-200  to-pink-400 p-1 pl-3 text-xl  font-extrabold italic text-primary blur-0 filter transition  hover:from-pink-500 hover:to-ter  dark:bg-gray-800 dark:text-black  `}
+            href="/project"
+          >
+            Explore All projects
+            <span className="mr-3">
+              <svg
+                className="h-2 w-2"
+                // width="10"
+                // height="10"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <path
+                  d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>
+          </Link>
+        </div>
+        {/* <div className=" px-4 py-10 sm:px-6 ">
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+            {data?.map((project) => {
+              return (
+                <Link
+                  key={project.id}
+                  className="group flex flex-col rounded-xl border bg-white shadow-sm transition hover:border-secondary hover:shadow-md dark:border-gray-800 dark:bg-slate-900 hover:dark:border-secondary"
+                  href={`/project/${project.name}`}
+                >
+                  <div className="p-4 md:p-5">
+                    <div className="flex">
+                      <img
+                        className="inline-block h-[3.234rem] w-[3.500rem] rounded-full ring-2 ring-ter dark:ring-secondary lg:w-[3.875rem]"
+                        src={project.logoUrl}
+                      />
+                      <div className="ml-5 grow">
+                        <h3 className="font-semibold text-gray-800 group-hover:text-ter dark:text-gray-200 dark:group-hover:text-ter">
+                          {project.name}
+                        </h3>
+                        <p className="text-sm text-gray-500">{project.about}</p>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div> */}
+        <div className={`px-4 py-10 sm:px-6 ${ibm.className} `}>
+          <div className="grid  divide-slate-700 overflow-hidden  rounded-xl shadow-sm   sm:flex sm:divide-y-0 sm:divide-x">
+            <div className="mb-10 flex flex-[1_0_0%] flex-col bg-white dark:bg-transparent">
+              {/* <img
+                className="h-auto w-full rounded-t-xl sm:rounded-tr-none"
+                src="/testimg.jpg"
+                alt="Image Description"
+              /> */}
+              <span
+                // className={`${ibm.className} text-center text-7xl font-extrabold text-black dark:text-white`}
+                className={`text bg-gradient-to-r from-indigo-500 via-ter bg-clip-text text-center text-5xl font-extrabold text-transparent lg:text-7xl`}
+              >
+                NFT
+              </span>
+              <div className="flex-1 p-4 md:p-5">
+                {nftProjects.isLoading ? (
+                  <Loader />
+                ) : (
+                  nftProjects.data?.map((project, i) => {
+                    return (
+                      <div
+                        key={i}
+                        className={`${ibm.className} mb-2 cursor-pointer rounded-md bg-slate-100 p-3 filter hover:bg-slate-700 hover:text-white hover:shadow-lg dark:bg-slate-900 dark:hover:bg-white dark:hover:text-black`}
+                      >
+                        <Link href={`/project/${project.name}`}>
+                          <h1 className="text-ter">{project.name}</h1>
+                          <span>{project.about}</span>
+                        </Link>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-[1_0_0%] flex-col bg-white dark:bg-transparent">
+              {/* <img
+                className="h-auto w-full rounded-t-xl sm:rounded-tr-none"
+                src="/testimg.jpg"
+                alt="Image Description"
+              /> */}
+              <span
+                // className={`${ibm.className} text-center text-7xl font-extrabold text-black dark:text-white`}
+                className={`text bg-gradient-to-r from-indigo-500 via-ter bg-clip-text text-center text-5xl font-extrabold text-transparent lg:text-7xl`}
+              >
+                DEFI
+              </span>
+              <div className="flex-1 p-4 md:p-5">
+                {defiProjects.isLoading ? (
+                  <Loader />
+                ) : (
+                  defiProjects.data?.map((project, i) => {
+                    return (
+                      <div
+                        key={i}
+                        className={`${ibm.className} mb-2 cursor-pointer rounded-md bg-slate-100 p-3 filter hover:bg-slate-700 hover:text-white hover:shadow-lg dark:bg-slate-900 dark:hover:bg-white dark:hover:text-black`}
+                      >
+                        <Link href={`/project/${project.name}`}>
+                          <h1 className="text-ter">{project.name}</h1>
+                          <span>{project.about}</span>
+                        </Link>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-[1_0_0%] flex-col bg-white dark:bg-transparent">
+              {/* <img
+                className="h-auto w-full rounded-t-xl sm:rounded-tr-none"
+                src="/testimg.jpg"
+                alt="Image Description"
+              /> */}
+              <span
+                // className={`${ibm.className} text-center text-7xl font-extrabold text-black dark:text-white`}
+                className={`text bg-gradient-to-r from-indigo-500 via-ter bg-clip-text text-center text-5xl font-extrabold text-transparent lg:text-7xl`}
+              >
+                GAMING
+              </span>
+              <div className="flex-1 p-4 md:p-5">
+                {gamingProjects.isLoading ? (
+                  <Loader />
+                ) : (
+                  gamingProjects.data?.map((project, i) => {
+                    return (
+                      <div
+                        key={i}
+                        className={`${ibm.className} mb-2 cursor-pointer rounded-md bg-slate-100 p-3 filter hover:bg-slate-700 hover:text-white hover:shadow-lg dark:bg-slate-900 dark:hover:bg-white dark:hover:text-black`}
+                      >
+                        <Link href={`/project/${project.name}`}>
+                          <h1 className="text-ter">{project.name}</h1>
+                          <span>{project.about}</span>
+                        </Link>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+            <div className="flex flex-[1_0_0%] flex-col bg-white dark:bg-transparent">
+              {/* <img
+                className="h-auto w-full rounded-t-xl sm:rounded-tr-none"
+                src="/testimg.jpg"
+                alt="Image Description"
+              /> */}
+              <span
+                // className={`${ibm.className} text-center text-7xl font-extrabold text-black dark:text-white`}
+                className={`text bg-gradient-to-r from-indigo-500 via-ter bg-clip-text text-center text-5xl font-extrabold text-transparent lg:text-7xl`}
+              >
+                OTHER
+              </span>
+              <div className="flex-1 p-4 md:p-5">
+                {otherProjects.isLoading ? (
+                  <Loader />
+                ) : (
+                  otherProjects.data?.map((project, i) => {
+                    return (
+                      <div
+                        key={i}
+                        className={`${ibm.className} mb-2 cursor-pointer rounded-md bg-slate-100 p-3 filter hover:bg-slate-700 hover:text-white hover:shadow-lg dark:bg-slate-900 dark:hover:bg-white dark:hover:text-black`}
+                      >
+                        <Link href={`/project/${project.name}`}>
+                          <h1 className="text-ter">{project.name}</h1>
+                          <span>{project.about}</span>
+                        </Link>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section>
         <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             <Link
-              className="group flex flex-col rounded-xl border bg-white shadow-sm transition  hover:shadow-md dark:border-gray-800 dark:bg-slate-900 "
+              className="group flex flex-col rounded-xl border bg-white shadow-sm transition  hover:shadow-md dark:border-gray-800 dark:bg-slate-900 dark:shadow-lg   dark:shadow-slate-900 "
               href="https://discord.com/invite/shardeum"
             >
               <div className="p-4 md:p-5">
@@ -154,7 +342,7 @@ const Home: NextPage = () => {
             </Link>
 
             <Link
-              className="group flex flex-col rounded-xl border bg-white shadow-sm transition hover:shadow-md dark:border-gray-800 dark:bg-slate-900"
+              className="group flex flex-col rounded-xl border bg-white shadow-sm transition hover:shadow-md dark:border-gray-800 dark:bg-slate-900 dark:shadow-lg   dark:shadow-slate-900"
               href="https://docs.shardeum.org/"
             >
               <div className="p-4 md:p-5">
@@ -184,7 +372,7 @@ const Home: NextPage = () => {
             </Link>
 
             <Link
-              className="group flex flex-col rounded-xl border bg-white shadow-sm transition  hover:shadow-md dark:border-gray-800 dark:bg-slate-900 "
+              className="group flex flex-col rounded-xl border bg-white transition   hover:shadow-md dark:border-gray-800 dark:bg-slate-900 dark:shadow-lg dark:shadow-slate-900"
               href="#"
             >
               <div className="p-4 md:p-5">
@@ -201,7 +389,7 @@ const Home: NextPage = () => {
                   </svg>
 
                   <div className="ml-5 grow">
-                    <h3 className="font-semibold text-gray-800 group-hover:text-ter dark:text-gray-200 dark:group-hover:text-ter">
+                    <h3 className="font-semibold text-gray-800  group-hover:text-ter dark:text-gray-200 dark:group-hover:text-ter">
                       Email us
                     </h3>
                     <p className="text-sm text-gray-500">
@@ -214,42 +402,6 @@ const Home: NextPage = () => {
                 </div>
               </div>
             </Link>
-          </div>
-        </div>
-      </section>
-
-      <SlidingText />
-      <hr className="mx-auto  my-6 h-1 w-80 rounded border-0 bg-secondary dark:bg-ter md:my-10" />
-      <section>
-        <h2 className="mb-2 text-center text-2xl font-bold lg:text-4xl ">
-          Discover All projects
-        </h2>
-        <div className=" px-4 py-10 sm:px-6 ">
-          <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-            {data?.map((project) => {
-              return (
-                <Link
-                  key={project.id}
-                  className="group flex flex-col rounded-xl border bg-white shadow-sm transition hover:border-secondary hover:shadow-md dark:border-gray-800 dark:bg-slate-900 hover:dark:border-secondary"
-                  href={`/project/${project.name}`}
-                >
-                  <div className="p-4 md:p-5">
-                    <div className="flex">
-                      <img
-                        className="inline-block h-[3.234rem] w-[3.500rem] rounded-full ring-2 ring-ter dark:ring-secondary lg:w-[3.875rem]"
-                        src={project.logoUrl}
-                      />
-                      <div className="ml-5 grow">
-                        <h3 className="font-semibold text-gray-800 group-hover:text-ter dark:text-gray-200 dark:group-hover:text-ter">
-                          {project.name}
-                        </h3>
-                        <p className="text-sm text-gray-500">{project.about}</p>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
           </div>
         </div>
       </section>

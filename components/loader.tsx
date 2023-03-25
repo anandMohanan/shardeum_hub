@@ -12,7 +12,7 @@ export const Loader: FC = () => {
     // </div>
     <div
       role="status"
-      className="fixed top-0 left-0 right-0 bottom-0 z-50 flex h-screen w-full flex-col items-center justify-center overflow-hidden  opacity-75"
+      className="top-0 left-0 right-0 bottom-0 z-50 flex  flex-col items-center justify-center overflow-hidden  opacity-75"
     >
       <svg
         aria-hidden="true"

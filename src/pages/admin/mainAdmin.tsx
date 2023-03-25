@@ -1,10 +1,18 @@
-import { type FC } from "react";
+import { useUser } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/router";
+import { useEffect, type FC } from "react";
 import { ProjectDetail } from "../../../components/projectDetail";
 import { api } from "../../utils/api";
 
 const MainAdmin: FC = () => {
   const approvalRequired = api.approval.approvalAwaiting.useQuery();
   const allProjects = api.project.getAdminProjects.useQuery();
+
+  const user = useUser();
+  const router = useRouter();
+  useEffect(() => {
+    if (!user) router.push("/").catch((e) => console.log(e));
+  }, [user]);
   return (
     <>
       {/* <h2 className="mt-10 mb-7 text-center text-2xl font-bold lg:text-4xl">

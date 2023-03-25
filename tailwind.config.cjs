@@ -31,6 +31,24 @@ module.exports = {
           "100%": { transform: "translateX(0%)" },
         },
       },
+      fontFamily: {
+        ibm: ["var(--font-ibm)"],
+      },
+    },
+    animation: {
+      text: "text 5s ease infinite",
+    },
+    keyframes: {
+      text: {
+        "0%, 100%": {
+          "background-size": "200% 200%",
+          "background-position": "left center",
+        },
+        "50%": {
+          "background-size": "200% 200%",
+          "background-position": "right center",
+        },
+      },
     },
   },
 

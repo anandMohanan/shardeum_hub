@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { ibm } from "../src/pages";
 
 export const NavBar = () => {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -53,9 +54,11 @@ export const NavBar = () => {
   };
   return (
     <>
-      <header className="z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-start">
+      <header
+        className={`${ibm.className} z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-start`}
+      >
         <nav
-          className="relative mx-2 mt-6 w-full max-w-7xl rounded-[36px] border border-secondary bg-white py-3 px-4 dark:border-secondary dark:bg-primary md:flex md:items-center md:justify-between md:py-0 md:px-6 lg:px-8 xl:mx-auto"
+          className="relative mx-2 mt-6 w-full max-w-7xl rounded-[36px] border border-black bg-white py-3 px-4 dark:border-white  dark:bg-transparent md:flex md:items-center md:justify-between md:py-0 md:px-6 lg:px-8 xl:mx-auto"
           aria-label="Global"
         >
           <div className="flex items-center justify-between">
@@ -70,7 +73,7 @@ export const NavBar = () => {
             <div className="md:hidden">
               <button
                 type="button"
-                className="hs-collapse-toggle dark:bg-slate bg-purple inline-flex items-center justify-center gap-2 rounded-full border p-2 align-middle text-sm font-medium text-primary shadow-sm transition-all hover:bg-accent focus:outline-none  focus:ring-offset-white dark:border-secondary dark:text-accent dark:hover:bg-primary dark:hover:text-accent dark:focus:ring-offset-primary"
+                className="hs-collapse-toggle dark:bg-slate bg-purple inline-flex items-center justify-center gap-2 rounded-full border border-black p-2 align-middle text-sm font-medium text-primary shadow-sm transition-all hover:bg-accent focus:outline-none  focus:ring-offset-white dark:border-white dark:text-accent dark:hover:bg-primary dark:hover:text-accent dark:focus:ring-offset-primary"
                 data-hs-collapse="#navbar-collapse-with-animation"
                 aria-controls="navbar-collapse-with-animation"
                 aria-label="Toggle navigation"
@@ -135,27 +138,27 @@ export const NavBar = () => {
                   </svg>
                 </button>
 
-                <div className="hs-dropdown-menu top-full z-10 hidden rounded-lg bg-white p-2 opacity-0 transition-[opacity,margin] duration-[0.1ms] before:absolute before:-top-5 before:left-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 dark:divide-gray-700 dark:border-gray-700 dark:bg-primary md:w-48 md:border md:shadow-md md:duration-[150ms] md:dark:border">
+                <div className="hs-dropdown-menu top-full z-10 hidden rounded-lg border-black bg-white p-2 opacity-0 transition-[opacity,margin] duration-[0.1ms] before:absolute before:-top-5 before:left-0 before:h-5 before:w-full hs-dropdown-open:opacity-100 dark:divide-gray-700 dark:border-white dark:bg-transparent md:w-48 md:border md:shadow-md md:duration-[150ms] md:dark:border">
                   <Link
-                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
+                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-ter focus:ring-2 dark:text-accent dark:hover:bg-ter dark:hover:text-accent"
                     href="/categories/nft"
                   >
                     Nft
                   </Link>
                   <Link
-                    className="flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-secondary focus:ring-2 focus:ring-blue-500 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
+                    className="flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-ter focus:ring-2 focus:ring-blue-500 dark:text-accent dark:hover:bg-ter dark:hover:text-accent"
                     href="/categories/defi"
                   >
                     Defi
                   </Link>
                   <Link
-                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
+                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-ter focus:ring-2 dark:text-accent dark:hover:bg-ter dark:hover:text-accent"
                     href="/categories/gaming"
                   >
                     Gaming
                   </Link>
                   <Link
-                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-secondary focus:ring-2 dark:text-accent dark:hover:bg-secondary dark:hover:text-accent"
+                    className="focus:ring-blue flex items-center gap-x-3.5 rounded-md py-2 px-3 text-sm text-primary hover:bg-ter focus:ring-2 dark:text-accent dark:hover:bg-ter dark:hover:text-accent"
                     href="/categories/other"
                   >
                     Others
@@ -164,7 +167,7 @@ export const NavBar = () => {
               </div>
 
               <Link
-                className="font-medium text-secondary underline decoration-ter decoration-wavy hover:text-ter dark:text-accent dark:hover:text-ter md:py-6"
+                className="font-medium text-secondary  decoration-ter  hover:text-ter dark:text-accent dark:hover:text-ter md:py-6"
                 href="/submit"
               >
                 Submit
